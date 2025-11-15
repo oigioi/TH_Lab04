@@ -1,0 +1,19 @@
+﻿@using TH_Lab04.Models
+@model IEnumerable<Major>
+
+@{
+    Layout = null;
+}
+
+<div class="list-group">
+    <a asp-action="Index" asp-controller="Learner" class="list-group-item list-group-item-action">
+        All Majors
+    </a>
+
+    @foreach (var m in Model)
+    {
+        <li class="list-group-item list-group-item-action" id="@m.MajorID">
+            @m.MajorName
+        </li>
+    }
+</div>

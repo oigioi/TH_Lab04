@@ -1,0 +1,60 @@
+﻿@using TH_Lab04.Models
+@model IEnumerable<Learner>
+
+@{
+    ViewData["Title"] = "Index";
+    // Giả định dùng layout mặc định
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <h3>Majors</h3>
+        @* Gọi MajorViewComponent *@
+        @await Component.InvokeAsync("Major")
+    </div>
+
+    <div class="col-md-9">
+        <h1>Learner List</h1>
+        <a asp-action="Create" class="btn btn-primary mb-3">Create New Learner</a>
+
+        @* Vùng chứa kết quả AJAX, ban đầu tải Partial View với dữ liệu đầy đủ *@
+        <div id="content">
+            @await Html.PartialAsync("LearnerTable", Model)
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @* Đảm bảo JQuery được load TẠI ĐÂY nếu không có trong Layout *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script>
+        // Sử dụng document ready để đảm bảo DOM đã load
+        $(document).ready(function() {
+            // Selector: Lắng nghe sự kiện click trên các thẻ <li>
+            $("li.list-group-item-action").click(function (e) {
+                var id = $(this).attr("id"); // Lấy MajorID từ thuộc tính id của <li>
+
+                // Kiểm tra xem MajorID đã được lấy chưa (Bạn có thể bỏ dòng alert này sau khi kiểm tra)
+                // alert("MajorID clicked: " + id);
+
+                // Chỉ gọi AJAX nếu ID là số hợp lệ (không phải là MajorID của "All Majors" nếu bạn có tạo)
+                if (id && !isNaN(id)) {
+                    $.ajax({
+                        url: "/Learner/LearnerByMajorID", // Thêm prefix Controller để đảm bảo đường dẫn tuyệt đối
+                        type: "GET", // Chỉ rõ phương thức GET
+                        data: { mid: id }, // Tham số gửi lên server
+                        success: function (response) {
+                            $("#content").html(response); // Cập nhật nội dung
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error: ", status, error);
+                            // alert("Có lỗi xảy ra khi tải dữ liệu.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

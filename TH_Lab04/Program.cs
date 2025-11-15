@@ -4,16 +4,13 @@ using TH_Lab04.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Đăng ký SchoolContext và kết nối với SQL Server
 builder.Services.AddDbContext<SchoolContext>(options => options
     .UseSqlServer(builder.Configuration.GetConnectionString("SchoolContext")));
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Khởi tạo dữ liệu mẫu khi ứng dụng chạy
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

@@ -17,32 +17,24 @@ namespace MyWebApp.Controllers
             db = context;
         }
 
-        // GET: /Learner/Index (List - R) - Hiển thị View Component và vùng chứa AJAX
+        // GET: /Learner/Index
         public IActionResult Index(int? id)
         {
-            // Đây là logic cho lần tải trang đầu tiên (hoặc lọc đồng bộ)
             IQueryable<Learner> learners = db.Learners.Include(m => m.Major);
             if (id != null)
             {
                 learners = learners.Where(l => l.MajorID == id);
             }
-
-            // Trả về danh sách Learner đầy đủ hoặc đã lọc cho Partial View ban đầu
             return View(learners.ToList());
         }
 
-        // GET: /Learner/LearnerByMajorID (Xử lý AJAX)
-        // Action này chỉ trả về Partial View chứa danh sách Learner đã lọc
+        // GET: /Learner/LearnerByMajorID
         public IActionResult LearnerByMajorID(int mid)
         {
-            // Lọc Learner theo MajorID
             var learners = db.Learners.Where(l => l.MajorID == mid).Include(m => m.Major).ToList();
 
-            // Trả về Partial View "LearnerTable"
             return PartialView("LearnerTable", learners);
         }
-
-        // --- CÁC ACTION CRUD CÓ SẴN TỪ BÀI LAB 4 ---
 
         public IActionResult Create()
         {

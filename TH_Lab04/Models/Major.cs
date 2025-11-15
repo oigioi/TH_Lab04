@@ -8,8 +8,6 @@
         }
         public int MajorID { get; set; }
         public string MajorName { get; set; }
-
-        // Navigation Property
         public virtual ICollection<Learner> Learners { get; set; }
     }
 }

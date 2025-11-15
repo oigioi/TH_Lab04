@@ -10,11 +10,7 @@
         public string LastName { get; set; }
         public string FirstMidName { get; set; }
         public DateTime EnrollmentDate { get; set; }
-
-        // Foreign Key
         public int MajorID { get; set; }
-
-        // Navigation Properties
         public virtual Major? Major { get; set; }
         public virtual ICollection<Enrollment> Enrollments { get; set; }
     }

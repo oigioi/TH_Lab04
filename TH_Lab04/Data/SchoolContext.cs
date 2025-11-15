@@ -16,7 +16,6 @@ namespace TH_Lab04.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Cấu hình tên bảng (tuỳ chọn)
             modelBuilder.Entity<Major>().ToTable(nameof(Major));
             modelBuilder.Entity<Course>().ToTable(nameof(Course));
             modelBuilder.Entity<Learner>().ToTable(nameof(Learner));

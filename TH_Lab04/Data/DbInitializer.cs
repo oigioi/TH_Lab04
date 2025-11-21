@@ -25,7 +25,7 @@ namespace TH_Lab04.Data
                 context.SaveChanges();
 
                 var learners = new Learner[] {
-                    new Learner { FirstMidName = "Carson", LastName = "Alexander",
+                    new Learner { FirstMidName = "Carson", LastName = "Alex",
                         EnrollmentDate = DateTime.Parse("2005-09-01"), MajorID = majors.Single(m => m.MajorName == "IT").MajorID },
                     new Learner { FirstMidName = "Meredith", LastName = "Alonso",
                         EnrollmentDate = DateTime.Parse("2002-09-01"), MajorID = majors.Single(m => m.MajorName == "Economics").MajorID }
